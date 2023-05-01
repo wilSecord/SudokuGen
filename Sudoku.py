@@ -95,15 +95,17 @@ def make_board():
                     min_entropy = item
         try:
             min_entropy.collapse()
+            un_collapsed.remove(min_entropy)
         except:
             break
-        un_collapsed.remove(min_entropy)
-
+    
+    board = np.asarray([c.value for c in board.flatten()])
+    board.resize(9, 9)
     return board
     
 
 if __name__ == "__main__":
     board = make_board()
-    while 0 in board.flatten():
+    while 0 in board:
         board = make_board()
     print(board)
