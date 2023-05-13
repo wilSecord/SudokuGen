@@ -98,14 +98,26 @@ def make_board():
             un_collapsed.remove(min_entropy)
         except:
             break
-    
-    board = np.asarray([c.value for c in board.flatten()])
-    board.resize(9, 9)
-    return board
-    
+    flat_board.resize(9, 9)
+    return flat_board
 
-if __name__ == "__main__":
+def new_board():
     board = make_board()
     while 0 in board:
         board = make_board()
-    print(board)
+    return board
+
+
+def new_play_board(difficulty):
+    board = new_board().flatten()
+    play = board.flatten()
+    for i in range(difficulty):
+        item = random.choice(board)
+        np.delete(board, np.where(board == item))
+        play[np.where(play == item)] = 0
+    play.resize(9, 9)
+    return play
+
+
+if __name__ == "__main__":
+    print(new_play_board(90))
